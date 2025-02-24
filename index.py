@@ -1,27 +1,32 @@
 from IPython.display import Audio, display, Javascript
-from google.colab import output
-from base64 import b64decode
+import sounddevice as sd
+from scipy.io.wavfile import write
+import os
 
-RECORD = """
-  const sleep = time => new Promise(resolve => setTimeout(resolve, time))
-  const b2text = blob => new Promise(resolve => {
-    const reader new FileReader()
-    reader.onloaded = e => resolve(e.srcElement.result)
-    reader.readAsDataURL(blob)
-  })
+# To record my audio
+def record(seconds=5, sample_rate=44100, output_dir="request_audios"):
+  # creates the folder if does not exists
+  if not os.path.exists(output_dir):
+      os.makedirs(output_dir)
 
-  var record = time => new Promise(async resolve => {
-    stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-    recorder = new MediaRecorder(stream)
-    chunks = []
-    recorder.ondataavailable = e => chunks.push(e.data)
-    recorder.start()
-    await sleep(time)
-    recorder.onstop = async () => {
-      blob = new Blob(chunks)
-      text = await b2text(blob)
-      resolve(text)
-    }
-    recorder.stop()
-  })
-"""
+  print("Recording...")
+  # Record the audio
+  audio = sd.rec(int(seconds * sample_rate), samplerate=sample_rate, channels=1, dtype='int16')
+  sd.wait()  # awaits the recording finishing
+  print("Finished Recording")
+
+  # Define the file name and the file path name
+  file_name = 'request_audio.wav'
+  file_path = os.path.join(output_dir, file_name)
+
+  # Save the audio in a .wav file
+  write(file_path, sample_rate, audio)
+
+  # Returns the full file path name
+  return file_path
+
+# Testing implemented function
+record_file = record(5)
+
+# Reproduce the recorded audio
+display(Audio(record_file, autoplay=True))
