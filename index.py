@@ -10,9 +10,9 @@ def record(seconds=5, sample_rate=44100, output_dir="request_audios"):
       os.makedirs(output_dir)
 
   print("Recording...")
-  # Record the audio
+  # Recording the audio
   audio = sd.rec(int(seconds * sample_rate), samplerate=sample_rate, channels=1, dtype='int16')
-  sd.wait()  # awaits the recording finishing
+  sd.wait()  # awaits the recording finish
   print("Finished Recording")
 
   # Define the file name and the file path name
