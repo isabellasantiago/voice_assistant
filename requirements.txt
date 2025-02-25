@@ -1,0 +1,20 @@
+# requirements.txt
+
+# OpenAI API for Whisper and GPT
+openai>=1.0.0
+
+# Google Text-to-Speech (gTTS)
+gtts>=2.3.2
+
+# Audio recording and playback
+sounddevice>=0.4.6
+scipy>=1.10.0
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# IPython (optional, for audio playback in Jupyter Notebooks)
+ipython>=8.12.0
+
+# Playsound (optional, for audio playback in scripts)
+playsound>=1.3.0

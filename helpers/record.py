@@ -26,6 +26,7 @@ def record(seconds=5, sample_rate=44100, output_dir="request_audios"):
   return file_path
 
 # Testing implemented function
+# You can change the seconds here
 record_file = record(5)
 
 # Reproduce the recorded audio

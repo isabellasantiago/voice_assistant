@@ -14,7 +14,7 @@ def createChatCompletion(transcription):
     )
     return response.choices[0].message.content
   except RateLimitError:
-    print("Erro: Rate Limit Exceed. Verify plan and billing at OpenAI.")
+    print("Error: Rate Limit Exceed. Verify plan and billing at OpenAI.")
     return None
   except Exception as e:
     print(f"Error: {e}")
